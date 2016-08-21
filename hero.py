@@ -69,7 +69,7 @@ class Hero(pygame.sprite.Sprite):
 
             pointing_at_tree = temp_rect.collidelist(GLOBALS.trees)
             if pointing_at_tree > -1:
-                del GLOBALS.trees[pointing_at_tree]
+                GLOBALS.trees[pointing_at_tree].change_image()
                 # remove collision obj there too?
                 colobj = temp_rect.collidelist(GLOBALS.walls)
                 del GLOBALS.walls[colobj]

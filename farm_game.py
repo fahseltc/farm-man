@@ -32,6 +32,8 @@ class FarmGame(object):
         GLOBALS.hero.position = GLOBALS.tile_map.map_layer.map_rect.center
 
         self.group.add(GLOBALS.hero)
+        for tree in GLOBALS.trees:
+            self.group.add(tree)
 
         self.input = Input()
 

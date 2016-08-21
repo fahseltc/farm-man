@@ -6,6 +6,7 @@ from pytmx.util_pygame import load_pygame
 import pyscroll
 import pyscroll.data
 import GLOBALS
+from tree import Tree
 
 
 class TileMap:
@@ -28,8 +29,13 @@ class TileMap:
                 object.width, object.height))
 
     def make_trees(self, layer):
+        # each tree in the tree object layer needs to make a wall above (and some tree object?)
         GLOBALS.trees = list()
         for object in layer:
-            GLOBALS.trees.append(pygame.Rect(
+            rect = pygame.Rect(
                 object.x, object.y,
-                object.width, object.height))
+                object.width, object.height)
+
+            GLOBALS.walls.append(rect) # needs to be moved elsewhere probably
+            GLOBALS.trees.append(Tree(rect))
+
