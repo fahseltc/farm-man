@@ -61,6 +61,7 @@ class Hero(pygame.sprite.Sprite):
 
     def handle_interactions(self):
         if GLOBALS.ACTION:
+            GLOBALS.ACTION = False
             # get the tile above for now I guess?
             target_tile = (self._position[0], self._position[1] - 20)
             temp_rect = self.rect.copy()
@@ -68,10 +69,9 @@ class Hero(pygame.sprite.Sprite):
             print 'reach rect: %s' % str(temp_rect.topleft)
 
             pointing_at_tree = temp_rect.collidelist(GLOBALS.trees)
-            if pointing_at_tree > -1:
+            if pointing_at_tree > -1 and GLOBALS.trees[pointing_at_tree].life > 0:
                 GLOBALS.trees[pointing_at_tree].change_image()
                 # remove collision obj there too?
                 colobj = temp_rect.collidelist(GLOBALS.walls)
+                print 'Rect being deleted x: %d, y: %d' % (GLOBALS.walls[colobj].x, GLOBALS.walls[colobj].y)
                 del GLOBALS.walls[colobj]
-                print 'hay it works/'
-

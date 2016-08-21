@@ -7,8 +7,7 @@ if __name__ == "__main__":
     pygame.init()
     pygame.font.init()
     screen = init_screen(800, 600)
-    pygame.display.set_caption('Quest - An epic journey.')
-
+    pygame.display.set_caption('Trees and Boxes')
 
     try:
         game = FarmGame()

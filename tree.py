@@ -19,3 +19,4 @@ class Tree(pygame.sprite.Sprite):
 
     def change_image(self):
         self.image = load_image('empty.png').convert_alpha()
+        self.life = 0
