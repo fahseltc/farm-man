@@ -1,16 +1,29 @@
-
 import pygame
 import CONSTANTS
 import GLOBALS
 from utils import load_image
+from direction import Direction
+
 class Hero(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = load_image('southStanding.png').convert_alpha()
+
         self.velocity = [0, 0]
         self._position = [0, 0]
+
+
+        self.direction = Direction.DOWN
+
+        self.images = dict()
+        self.images['NORTH'] = load_image('player/N/northStanding.png').convert_alpha()
+        self.images['SOUTH'] = load_image('player/S/southStanding.png').convert_alpha()
+        self.images['EAST'] = load_image('player/E/eastStanding.png').convert_alpha()
+        self.images['WEST'] = load_image('player/W/westStanding.png').convert_alpha()
+
+        self.image = self.images['SOUTH']
         self.rect = self.image.get_rect()
         self.feet = pygame.Rect(0, 0, self.rect.width * .5, 8)
+
 
     @property
     def position(self):
@@ -36,8 +49,10 @@ class Hero(pygame.sprite.Sprite):
 
         self.rect.topleft = self._position
         self.feet.midbottom = self.rect.midbottom
-
+        self.determine_facing_direction()
         self.handle_interactions()
+
+
 
     def set_velocity(self):
         self.velocity[1] = 0
@@ -60,12 +75,12 @@ class Hero(pygame.sprite.Sprite):
         return (temp_feet.collidelist(GLOBALS.walls) > -1)
 
     def handle_interactions(self):
+        print 'direction: %d, %d' % (self.direction[0], self.direction[1])
         if GLOBALS.ACTION:
-            GLOBALS.ACTION = False
-            # get the tile above for now I guess?
-            target_tile = (self._position[0], self._position[1] - 20)
+
             temp_rect = self.rect.copy()
-            temp_rect.topleft = target_tile
+            temp_rect.topleft = (self._position[0] - (20 * self.direction[0]), self._position[1] - (20 * self.direction[1]))
+
             print 'reach rect: %s' % str(temp_rect.topleft)
 
             pointing_at_tree = temp_rect.collidelist(GLOBALS.trees)
@@ -75,3 +90,23 @@ class Hero(pygame.sprite.Sprite):
                 colobj = temp_rect.collidelist(GLOBALS.walls)
                 print 'Rect being deleted x: %d, y: %d' % (GLOBALS.walls[colobj].x, GLOBALS.walls[colobj].y)
                 del GLOBALS.walls[colobj]
+
+    def determine_facing_direction(self):
+        if self.velocity[0] > 0:
+            self.image = self.images['EAST']
+            self.direction = Direction.LEFT
+            print 'facing: EAST'
+        elif self.velocity[0] < 0:
+            self.image = self.images['WEST']
+            self.direction = Direction.RIGHT
+            print 'facing: WEST'
+
+        if self.velocity[1] > 0:
+            self.image = self.images['SOUTH']
+            self.direction = Direction.UP
+            print 'facing: SOUTH'
+        elif self.velocity[1] < 0:
+            self.image = self.images['NORTH']
+            self.direction = Direction.DOWN
+            print 'facing: NORTH'
+

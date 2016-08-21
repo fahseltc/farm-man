@@ -1,7 +1,7 @@
 global tile_map
 global hero
 global walls
-global tre
+global trees
 global game_running
 
 
