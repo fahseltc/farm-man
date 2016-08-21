@@ -36,7 +36,24 @@ class Hero(pygame.sprite.Sprite):
     def update(self, dt):
         print 'position: %s' % str(self._position)
         self.set_velocity()
+        self.move(dt)
 
+        self.determine_facing_direction()
+        self.handle_interactions()
+
+    def set_velocity(self):
+        self.velocity[1] = 0
+        if GLOBALS.MOVE_UP:
+            self.velocity[1] = -CONSTANTS.HERO_MOVE_SPEED
+        if GLOBALS.MOVE_DOWN:
+            self.velocity[1] = +CONSTANTS.HERO_MOVE_SPEED
+        self.velocity[0] = 0
+        if GLOBALS.MOVE_LEFT:
+            self.velocity[0] = -CONSTANTS.HERO_MOVE_SPEED
+        if GLOBALS.MOVE_RIGHT:
+            self.velocity[0] = +CONSTANTS.HERO_MOVE_SPEED
+
+    def move(self, dt):
         future_x = self._position[0] + self.velocity[0] * dt
         future_pos_x = (future_x, self._position[1])
         if not self.check_collision(future_pos_x):
@@ -46,26 +63,8 @@ class Hero(pygame.sprite.Sprite):
         future_pos_y = (self._position[0], future_y)
         if not self.check_collision(future_pos_y):
             self._position[1] = future_y
-
         self.rect.topleft = self._position
         self.feet.midbottom = self.rect.midbottom
-        self.determine_facing_direction()
-        self.handle_interactions()
-
-
-
-    def set_velocity(self):
-        self.velocity[1] = 0
-        if GLOBALS.MOVE_UP:
-            self.velocity[1] = -CONSTANTS.HERO_MOVE_SPEED
-        if GLOBALS.MOVE_DOWN:
-            self.velocity[1] = +CONSTANTS.HERO_MOVE_SPEED
-
-        self.velocity[0] = 0
-        if GLOBALS.MOVE_LEFT:
-            self.velocity[0] = -CONSTANTS.HERO_MOVE_SPEED
-        if GLOBALS.MOVE_RIGHT:
-            self.velocity[0] = +CONSTANTS.HERO_MOVE_SPEED
 
     def check_collision(self, future_pos):
         temp_rect = self.rect.copy()
