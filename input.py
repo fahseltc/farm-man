@@ -34,8 +34,10 @@ class Input:
 
             # this will be handled if the window is resized
             elif event.type == VIDEORESIZE:
+                GLOBALS.SCREEN_RES = (event.w, event.h)
                 init_screen(event.w, event.h)
                 GLOBALS.tile_map.map_layer.set_size((event.w, event.h))
+                GLOBALS.UI.set_size()
 
             event = poll()
 

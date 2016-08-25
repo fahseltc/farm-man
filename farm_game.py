@@ -11,11 +11,13 @@ from hero import Hero
 import GLOBALS
 from tile_map import TileMap
 from input import Input
+from user_interface import UserInterface
 
 class FarmGame(object):
 
     def __init__(self):
         self.screen = pygame.display.get_surface()
+        GLOBALS.UI = UserInterface()
 
         GLOBALS.game_running = False
         GLOBALS.tile_map = TileMap()
@@ -48,6 +50,7 @@ class FarmGame(object):
                 self.input.handle()
                 self.update(dt)
                 self.draw(self.screen)
+                GLOBALS.UI.draw(self.screen)
                 pygame.display.flip()
 
         except KeyboardInterrupt:
@@ -56,16 +59,6 @@ class FarmGame(object):
     def update(self, dt):
         self.group.update(dt)
 
-        # check if the sprite's feet are colliding with wall
-        # sprite must have a rect called feet, and move_back method,
-        # otherwise this will fail
-        # for sprite in self.group.sprites():
-        #     if sprite.feet.collidelist(GLOBALS.walls) > -1:
-        #         sprite.move_back(dt)
-
     def draw(self, surface):
-        # center the map/screen on our Hero
         self.group.center(GLOBALS.hero.rect.center)
-
-        # draw the map and all sprites
         self.group.draw(surface)

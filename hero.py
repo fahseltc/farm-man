@@ -11,7 +11,6 @@ class Hero(pygame.sprite.Sprite):
         self.velocity = [0, 0]
         self._position = [0, 0]
 
-
         self.direction = Direction.DOWN
 
         self.images = dict()
@@ -23,6 +22,7 @@ class Hero(pygame.sprite.Sprite):
         self.image = self.images['SOUTH']
         self.rect = self.image.get_rect()
         self.feet = pygame.Rect(0, 0, self.rect.width * .5, 8)
+        self.tree_count = 0
 
 
     @property
@@ -58,7 +58,7 @@ class Hero(pygame.sprite.Sprite):
         future_pos_x = (future_x, self._position[1])
         if not self.check_collision(future_pos_x):
             self._position[0] = future_x
-
+        #GLOBALS.SOUND.play()
         future_y = self._position[1] + self.velocity[1] * dt
         future_pos_y = (self._position[0], future_y)
         if not self.check_collision(future_pos_y):
@@ -83,12 +83,14 @@ class Hero(pygame.sprite.Sprite):
             print 'reach rect: %s' % str(temp_rect.topleft)
 
             pointing_at_tree = temp_rect.collidelist(GLOBALS.trees)
-            if pointing_at_tree > -1 and GLOBALS.trees[pointing_at_tree].life > 0:
-                GLOBALS.trees[pointing_at_tree].change_image()
-                # remove collision obj there too?
-                colobj = temp_rect.collidelist(GLOBALS.walls)
-                print 'Rect being deleted x: %d, y: %d' % (GLOBALS.walls[colobj].x, GLOBALS.walls[colobj].y)
-                del GLOBALS.walls[colobj]
+            if pointing_at_tree > -1 and not GLOBALS.trees[pointing_at_tree].dead > 0:
+                GLOBALS.trees[pointing_at_tree].interact()
+                if GLOBALS.trees[pointing_at_tree].dead:
+                    GLOBALS.SOUND.play()
+                    self.tree_count += 1
+                    colobj = temp_rect.collidelist(GLOBALS.walls)
+                    print 'Rect being deleted x: %d, y: %d' % (GLOBALS.walls[colobj].x, GLOBALS.walls[colobj].y)
+                    del GLOBALS.walls[colobj]
 
     def determine_facing_direction(self):
         if self.velocity[0] > 0:

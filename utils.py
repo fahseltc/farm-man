@@ -15,3 +15,6 @@ def get_map(filename):
 # make loading images a little easier
 def load_image(filename):
     return pygame.image.load(os.path.join(CONSTANTS.RESOURCES_DIR, filename))
+
+def load_sound(filename):
+    return pygame.mixer.Sound(os.path.join(CONSTANTS.RESOURCES_DIR, filename))

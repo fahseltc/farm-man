@@ -1,8 +1,12 @@
+global SCREEN_RES
 global tile_map
 global hero
 global walls
 global trees
 global game_running
+global UI
+
+global SOUND
 
 
 GAME_ACTIONS = {
