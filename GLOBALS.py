@@ -5,6 +5,7 @@ global walls
 global trees
 global game_running
 global UI
+global ground
 
 global SOUND
 

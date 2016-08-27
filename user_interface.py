@@ -11,7 +11,7 @@ class UserInterface:
 
         self.elements.append(ImageElement('tree32.png', (40, 50)))
         self.elements.append(PlayerTreeCountElement((1, 50)))
-        
+
 
         self.ui_screen = pygame.Surface(GLOBALS.SCREEN_RES, pygame.SRCALPHA, 32).convert_alpha()
 

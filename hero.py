@@ -86,11 +86,17 @@ class Hero(pygame.sprite.Sprite):
             if pointing_at_tree > -1 and not GLOBALS.trees[pointing_at_tree].dead > 0:
                 GLOBALS.trees[pointing_at_tree].interact()
                 if GLOBALS.trees[pointing_at_tree].dead:
-                    GLOBALS.SOUND.play()
+                    GLOBALS.SOUND.play_waka()
                     self.tree_count += 1
                     colobj = temp_rect.collidelist(GLOBALS.walls)
                     print 'Rect being deleted x: %d, y: %d' % (GLOBALS.walls[colobj].x, GLOBALS.walls[colobj].y)
                     del GLOBALS.walls[colobj]
+
+
+            pointing_at_ground = temp_rect.collidelist(GLOBALS.ground)
+            if pointing_at_tree > -1:
+                GLOBALS.ground[pointing_at_ground].interact()
+                GLOBALS.SOUND.play_fruit()
 
     def determine_facing_direction(self):
         if self.velocity[0] > 0:

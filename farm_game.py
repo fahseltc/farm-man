@@ -12,6 +12,7 @@ import GLOBALS
 from tile_map import TileMap
 from input import Input
 from user_interface import UserInterface
+from ground import Ground
 
 class FarmGame(object):
 
@@ -33,9 +34,12 @@ class FarmGame(object):
         GLOBALS.hero = Hero()
         GLOBALS.hero.position = GLOBALS.tile_map.map_layer.map_rect.center
 
-        self.group.add(GLOBALS.hero)
         for tree in GLOBALS.trees:
             self.group.add(tree)
+
+        for ground in GLOBALS.ground:
+            self.group.add(ground)
+        self.group.add(GLOBALS.hero) # add player last!
 
         self.input = Input()
 

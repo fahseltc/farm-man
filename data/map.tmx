@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="111">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="129">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tiles.png" width="128" height="128"/>
  </tileset>
@@ -3324,5 +3324,19 @@
   <object id="108" x="1184" y="32" width="32" height="32"/>
   <object id="109" x="1152" y="192" width="32" height="32"/>
   <object id="110" x="1088" y="160" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#ff0000" name="ground">
+  <object id="114" x="768" y="64" width="32" height="32"/>
+  <object id="115" x="672" y="128" width="32" height="32"/>
+  <object id="116" x="672" y="96" width="32" height="32"/>
+  <object id="117" x="672" y="64" width="32" height="32"/>
+  <object id="118" x="704" y="64" width="32" height="32"/>
+  <object id="119" x="704" y="96" width="32" height="32"/>
+  <object id="120" x="704" y="128" width="32" height="32"/>
+  <object id="122" x="672" y="320" width="32" height="32"/>
+  <object id="123" x="640" y="352" width="32" height="32"/>
+  <object id="124" x="640" y="384" width="32" height="32"/>
+  <object id="126" x="608" y="384" width="32" height="32"/>
+  <object id="127" x="608" y="352" width="32" height="32"/>
  </objectgroup>
 </map>

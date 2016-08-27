@@ -7,6 +7,7 @@ import pyscroll
 import pyscroll.data
 import GLOBALS
 from tree import Tree
+from ground import Ground
 
 
 class TileMap:
@@ -17,6 +18,7 @@ class TileMap:
 
         self.make_walls(tmx_data.get_layer_by_name('collision'))
         self.make_trees(tmx_data.get_layer_by_name('tree'))
+        self.make_ground(tmx_data.get_layer_by_name('ground'))
 
         map_data = pyscroll.data.TiledMapData(tmx_data)
         self.map_layer = pyscroll.BufferedRenderer(map_data, pygame.display.get_surface().get_size())
@@ -39,3 +41,11 @@ class TileMap:
             GLOBALS.walls.append(rect) # needs to be moved elsewhere probably
             GLOBALS.trees.append(Tree(rect))
 
+    def make_ground(self, layer):
+        GLOBALS.ground = list()
+        for object in layer:
+            rect = pygame.Rect(
+                object.x, object.y,
+                object.width, object.height)
+
+            GLOBALS.ground.append(Ground(rect))
