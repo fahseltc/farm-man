@@ -1,4 +1,2 @@
-rmdir /s /q build
-rmdir /s /q dist
-python setup.py build
-python setup.py bdist_msi
+call clean.bat
+call build.bat
